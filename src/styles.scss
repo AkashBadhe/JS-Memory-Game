@@ -20,172 +20,174 @@ body {
   margin: 0;
   background-color: $background-color;
   font-family: "Press Start 2P", cursive;
-}
 
-.memory-game-container {
-  display: grid;
-  grid-template-columns: repeat($grid-columns, $card-width);
-  grid-gap: $grid-gap;
-}
+  .memory-game-container {
+    display: grid;
+    grid-template-columns: repeat($grid-columns, $card-width);
+    grid-gap: $grid-gap;
+  }
 
-.matched {
-  opacity: 0.5;
-  pointer-events: none;
-  background-color: #ccc; // Grayish background color
-  filter: grayscale(100%); // Convert to grayscale
-}
+  .matched {
+    opacity: 0.5;
+    pointer-events: none;
+    background-color: #ccc; // Grayish background color
+    filter: grayscale(100%); // Convert to grayscale
+  }
 
-.memory-card {
-  position: relative;
-  perspective: 1000px;
-  width: $card-width;
-  height: $card-height;
+  .memory-card {
+    position: relative;
+    perspective: 1000px;
+    width: $card-width;
+    height: $card-height;
 
-  &.flip {
+    &.flip {
+      .card {
+        transform: rotateY(180deg);
+      }
+    }
+
     .card {
-      transform: rotateY(180deg);
+      width: $card-width;
+      height: $card-height;
+      transition: transform 0.5s;
+      backface-visibility: visible;
+      position: absolute;
+    }
+
+    .back-face {
+      background: $card-background;
+      border-radius: $card-border-radius;
+      box-shadow: $card-box-shadow;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: $card-transition;
+      backface-visibility: hidden;
+      position: absolute;
     }
   }
 
-  .card {
-    width: $card-width;
-    height: $card-height;
-    transition: transform 0.5s;
-    backface-visibility: visible;
-    position: absolute;
+  .sprite {
+    background-image: $sprite-image;
+    background-repeat: no-repeat;
   }
 
-  .back-face {
-    background: $card-background;
-    border-radius: $card-border-radius;
-    box-shadow: $card-box-shadow;
+  .image1 {
+    background-position: -98px -155px;
+  }
+
+  .image2 {
+    background-position: -303px -155px;
+  }
+
+  .image3 {
+    background-position: -510px -155px;
+  }
+
+  .image4 {
+    background-position: -714px -155px;
+  }
+
+  .image5 {
+    background-position: -100px -358px;
+  }
+
+  .image6 {
+    background-position: -305px -362px;
+  }
+
+  .image7 {
+    background-position: -508px -352px;
+  }
+
+  .image8 {
+    background-position: -713px -355px;
+  }
+
+  // Start screen
+
+  .start-screen {
+    background: rgb(63, 201, 251);
+    background: radial-gradient(
+      circle,
+      rgba(63, 201, 251, 1) 0%,
+      rgba(70, 204, 252, 1) 100%
+    );
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    width: 80vw;
+    font-family: "Press Start 2P", cursive;
+    border-radius: 10px;
+  }
+
+  .fancy-button {
+    background: $button-sprite-image;
+    color: white;
+    background-position: -15px -336px;
+    width: 528px;
+    height: 116px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    font-family: "Press Start 2P", cursive;
+    font-size: 30px;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+
+  .win-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
-    transition: $card-transition;
-    backface-visibility: hidden;
-    position: absolute;
+    flex-direction: column;
+    color: white;
+    font-size: 2em;
+    text-align: center;
+
+    .heading {
+      line-height: 110px;
+    }
+
+    &.active {
+      display: flex; /* Shown when the 'active' class is added */
+    }
+
+    .restart-button {
+      background-color: green;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.2em;
+      margin-top: 20px;
+
+      &:hover {
+        background: $button-sprite-image;
+        color: white;
+      }
+    }
   }
-}
 
-.sprite {
-  background-image: $sprite-image;
-  background-repeat: no-repeat;
-}
-
-.image1 {
-  background-position: -98px -155px;
-}
-
-.image2 {
-  background-position: -303px -155px;
-}
-
-.image3 {
-  background-position: -510px -155px;
-}
-
-.image4 {
-  background-position: -714px -155px;
-}
-
-.image5 {
-  background-position: -100px -358px;
-}
-
-.image6 {
-  background-position: -305px -362px;
-}
-
-.image7 {
-  background-position: -508px -352px;
-}
-
-.image8 {
-  background-position: -713px -355px;
-}
-
-// Start screen
-
-.start-screen {
-  background: rgb(63, 201, 251);
-  background: radial-gradient(
-    circle,
-    rgba(63, 201, 251, 1) 0%,
-    rgba(70, 204, 252, 1) 100%
-  );
-  color: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 80vh;
-  width: 80vw;
-  font-family: "Press Start 2P", cursive;
-  border-radius: 10px;
-}
-
-.fancy-button {
-  background: $button-sprite-image;
-  color: white;
-  background-position: -15px -336px;
-  width: 528px;
-  height: 116px;
-  border: none;
-  cursor: pointer;
-  transition: transform 0.3s ease-in-out;
-  font-family: "Press Start 2P", cursive;
-  font-size: 30px;
-  &:hover {
-    transform: scale(1.05);
+  .score-container {
+    display: flex;
+    justify-content: space-around;
   }
-  &:active {
-    transform: scale(0.95);
-  }
-}
-
-.win-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.75);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  color: white;
-  font-size: 2em;
-  text-align: center;
-
-  .heading {
-    line-height: 110px;
-  }
-}
-
-.win-overlay.active {
-  display: flex; /* Shown when the 'active' class is added */
-}
-
-.restart-button {
-  background-color: green;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 1.2em;
-  margin-top: 20px;
-}
-
-.restart-button:hover {
-  background: $button-sprite-image;
-  color: white;
-}
-
-.score-container {
-  display: flex;
-  justify-content: space-around;
 }

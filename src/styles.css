@@ -48,7 +48,7 @@ body .memory-card .back-face {
   position: absolute;
 }
 body .sprite {
-  background-image: url("/sprite.c3093533.png");
+  background-image: url("/src/assets/images/sprite.png");
   background-repeat: no-repeat;
 }
 body .image1 {
@@ -93,7 +93,7 @@ body .start-screen {
   border-radius: 10px;
 }
 body .fancy-button {
-  background: url("/buttons.682d06c5.png");
+  background: url("/src/assets/images/buttons.png");
   color: white;
   background-position: -15px -336px;
   width: 528px;
@@ -142,13 +142,10 @@ body .win-overlay .restart-button {
   margin-top: 20px;
 }
 body .win-overlay .restart-button:hover {
-  background: url("/buttons.682d06c5.png");
+  background: url("/src/assets/images/buttons.png");
   color: white;
 }
 body .score-container {
   display: flex;
   justify-content: space-around;
 }
-
-
-/*# sourceMappingURL=/src.a2b27638.css.map */

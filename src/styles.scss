@@ -1,0 +1,75 @@
+$card-width: 370px;
+$card-height: 370px;
+$grid-columns: 4;
+$grid-gap: 10px;
+$background-color: #f0f0f0;
+$card-background: linear-gradient(135deg, #ffc371, #ff5f6d);
+$card-border-radius: 10px;
+$card-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+$card-transition: rotateY(180deg);
+$sprite-image: url("/src/assets/images/sprite.jpg");
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  background-color: $background-color;
+}
+
+.memory-game-container {
+  display: grid;
+  grid-template-columns: repeat($grid-columns, $card-width);
+  grid-gap: $grid-gap;
+}
+
+.matched {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+
+
+.memory-card {
+  position: relative;
+  perspective: 1000px;
+  width: $card-width;
+  height: $card-height;
+
+  &.flip {
+    .card {
+      transform: rotateY(180deg);
+    }
+  }
+
+  .card {
+    width: $card-width;
+    height: $card-height;
+    transition: transform 0.5s;
+    backface-visibility: visible;
+    position: absolute;
+  }
+
+  .back-face {
+    background: $card-background;
+    border-radius: $card-border-radius;
+    box-shadow: $card-box-shadow;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: $card-transition;
+    backface-visibility: hidden;
+    position: absolute;
+  }
+}
+
+@for $i from 1 through 16 {
+  .image#{$i} {
+    $x: -194px - 409px * (($i - 1) % 4);
+    $y: -300px - 406px * floor(($i - 1) / 4);
+    background-position: $x $y;
+    background-image: $sprite-image;
+  }
+}

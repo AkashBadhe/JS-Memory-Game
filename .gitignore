@@ -77,3 +77,9 @@ typings/
 
 # DynamoDB Local files
 .dynamodb/
+
+# Build folders
+dist/
+
+.DS_Store
+

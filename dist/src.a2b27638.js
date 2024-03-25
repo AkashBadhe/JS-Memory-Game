@@ -172,14 +172,40 @@ module.exports = reloadCSS;
 var reloadCSS = require('_css_loader');
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"/Users/akashb/Akash_Workspace/Games/JsMemoryGame/src/assets/images/sprite.jpg":[["sprite.5361f507.jpg","src/assets/images/sprite.jpg"],"src/assets/images/sprite.jpg"],"_css_loader":"node_modules/.pnpm/parcel-bundler@1.12.5/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"src/index.js":[function(require,module,exports) {
+},{"/Users/akashb/Akash_Workspace/Games/JsMemoryGame/src/assets/images/sprite.png":[["sprite.c3093533.png","src/assets/images/sprite.png"],"src/assets/images/sprite.png"],"/Users/akashb/Akash_Workspace/Games/JsMemoryGame/src/assets/images/buttons.png":[["buttons.682d06c5.png","src/assets/images/buttons.png"],"src/assets/images/buttons.png"],"_css_loader":"node_modules/.pnpm/parcel-bundler@1.12.5/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"src/index.js":[function(require,module,exports) {
 "use strict";
 
 require("./styles.scss");
 var hasFlippedCard = false;
 var lockBoard = false;
 var firstCard, secondCard;
+var cardCount = 16;
+var score = {
+  tries: 0,
+  time: 0
+};
+var timer;
+function checkWin(appContainer) {
+  var matchedCards = document.querySelectorAll(".matched");
+  if (matchedCards.length === cardCount) {
+    clearTimeout(timer);
+    var _appContainer = document.getElementById("app");
+    var winOverlay = document.createElement("div");
+    winOverlay.classList.add("win-overlay");
+    winOverlay.innerHTML = "<h1 class=\"heading\">Congratulations! <br>You Won!</h1>\n                            <h3>Time: ".concat(score.time, " seconds</h3>\n                            <h3>Flips: ").concat(score.tries, "</h3>\n                            <button class=\"fancy-button\" id=\"reStartButton\">Play Again</button>");
+    setTimeout(function () {
+      _appContainer.appendChild(winOverlay);
+      var restartButton = document.getElementById("reStartButton");
+      restartButton.addEventListener("click", function () {
+        winOverlay.style.display = "none";
+        _appContainer.innerHTML = "";
+        startGame(_appContainer);
+      });
+    }, 500);
+  }
+}
 function flipCard() {
+  updateScoreBoard();
   if (lockBoard) return;
   if (this === firstCard) return;
   this.classList.add("flip");
@@ -194,10 +220,13 @@ function flipCard() {
 function checkForMatch() {
   var isMatch = firstCard.dataset.framework === secondCard.dataset.framework;
   isMatch ? disableCards() : unflipCards();
+  checkWin();
 }
 function disableCards() {
   firstCard.removeEventListener("click", flipCard);
   secondCard.removeEventListener("click", flipCard);
+  firstCard.classList.add("matched");
+  secondCard.classList.add("matched");
   resetBoard();
 }
 function unflipCards() {
@@ -214,8 +243,33 @@ function resetBoard() {
   firstCard = null;
   secondCard = null;
 }
-(function shuffle() {
-  var appContainer = document.getElementById("app");
+function startGame(appContainer) {
+  initializeScoreBoard(appContainer);
+  initializeBoard(appContainer);
+}
+function initializeScoreBoard(appContainer) {
+  var scoreBoard = document.createElement("div");
+  scoreBoard.classList.add("score-board");
+  scoreBoard.innerHTML = "<div class=\"score-container\"><h1>Flips: <span id=\"tries\">0</span></h1> <h1>Time: <span id=\"time\">0</span></h1></div>";
+  appContainer.appendChild(scoreBoard);
+  initializeTimer();
+}
+function initializeTimer() {
+  var time = document.getElementById("time");
+  var seconds = 0;
+  timer = setInterval(function () {
+    score.time = seconds;
+    time.innerText = seconds;
+    seconds++;
+  }, 1000);
+  document.getElementById("time").innerText = score.time; // Initialize the time to 0
+}
+function updateScoreBoard() {
+  var tries = document.getElementById("tries");
+  score.tries++;
+  tries.innerText = score.tries;
+}
+function initializeBoard(appContainer) {
   var memoryGameContainer = document.createElement("div");
   memoryGameContainer.classList.add("memory-game-container");
   appContainer.appendChild(memoryGameContainer);
@@ -223,33 +277,49 @@ function resetBoard() {
   cardsContainer.forEach(function (container) {
     container.innerHTML = "";
     var cardNumbers = Array.from({
-      length: 8
+      length: cardCount / 2
     }, function (_, i) {
       return i + 1;
     }).concat(Array.from({
-      length: 8
+      length: cardCount / 2
     }, function (_, i) {
       return i + 1;
     })); // [1, 2, 3, ..., 8, 1, 2, 3, ..., 8]
     cardNumbers.sort(function () {
       return Math.random() - 0.5;
     }); // Shuffle the array
-    for (var i = 0; i < 16; i++) {
+
+    for (var i = 0; i < cardCount; i++) {
       var card = document.createElement("div");
-      card.classList.add("memory-card", "sprite");
+      card.classList.add("memory-card");
       card.dataset.framework = cardNumbers[i];
-      card.innerHTML = "<div class=\"card image".concat(cardNumbers[i], "\"></div>\n                                            <div class=\"card back-face\"></div>");
+      card.innerHTML = "<div class=\"card image".concat(cardNumbers[i], " sprite\" ></div>\n                                            <div class=\"card back-face\"></div>");
       container.appendChild(card);
     }
   });
   var cards = document.querySelectorAll(".memory-card");
   cards.forEach(function (card) {
-    var randomPos = Math.floor(Math.random() * 16);
+    var randomPos = Math.floor(Math.random() * cardCount);
     card.style.order = randomPos;
   });
   cards.forEach(function (card) {
     return card.addEventListener("click", flipCard);
   });
+}
+function showStartScreen(appContainer) {
+  var startScreen = document.createElement("div");
+  startScreen.classList.add("start-screen");
+  startScreen.innerHTML = "<h1>Memory Game</h1>\n                                    <button class=\"fancy-button\" id=\"startButton\">Start Game</button>";
+  appContainer.appendChild(startScreen);
+  var startButton = document.getElementById("startButton");
+  startButton.addEventListener("click", function () {
+    startScreen.style.display = "none";
+    startGame(appContainer);
+  });
+}
+(function () {
+  var appContainer = document.getElementById("app");
+  showStartScreen(appContainer);
 })();
 },{"./styles.scss":"src/styles.scss"}],"node_modules/.pnpm/parcel-bundler@1.12.5/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -276,7 +346,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60883" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57547" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

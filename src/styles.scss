@@ -1,5 +1,7 @@
-$card-width: 370px;
-$card-height: 370px;
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
+$card-width: 170px;
+$card-height: 170px;
 $grid-columns: 4;
 $grid-gap: 10px;
 $background-color: #f0f0f0;
@@ -7,7 +9,8 @@ $card-background: linear-gradient(135deg, #ffc371, #ff5f6d);
 $card-border-radius: 10px;
 $card-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 $card-transition: rotateY(180deg);
-$sprite-image: url("/src/assets/images/sprite.jpg");
+$sprite-image: url("/src/assets/images/sprite.png");
+$button-sprite-image: url("/src/assets/images/buttons.png");
 
 body {
   display: flex;
@@ -16,6 +19,7 @@ body {
   min-height: 100vh;
   margin: 0;
   background-color: $background-color;
+  font-family: "Press Start 2P", cursive;
 }
 
 .memory-game-container {
@@ -27,9 +31,9 @@ body {
 .matched {
   opacity: 0.5;
   pointer-events: none;
+  background-color: #ccc; // Grayish background color
+  filter: grayscale(100%); // Convert to grayscale
 }
-
-
 
 .memory-card {
   position: relative;
@@ -65,11 +69,123 @@ body {
   }
 }
 
-@for $i from 1 through 16 {
-  .image#{$i} {
-    $x: -194px - 409px * (($i - 1) % 4);
-    $y: -300px - 406px * floor(($i - 1) / 4);
-    background-position: $x $y;
-    background-image: $sprite-image;
+.sprite {
+  background-image: $sprite-image;
+  background-repeat: no-repeat;
+}
+
+.image1 {
+  background-position: -98px -155px;
+}
+
+.image2 {
+  background-position: -303px -155px;
+}
+
+.image3 {
+  background-position: -510px -155px;
+}
+
+.image4 {
+  background-position: -714px -155px;
+}
+
+.image5 {
+  background-position: -100px -358px;
+}
+
+.image6 {
+  background-position: -305px -362px;
+}
+
+.image7 {
+  background-position: -508px -352px;
+}
+
+.image8 {
+  background-position: -713px -355px;
+}
+
+// Start screen
+
+.start-screen {
+  background: rgb(63, 201, 251);
+  background: radial-gradient(
+    circle,
+    rgba(63, 201, 251, 1) 0%,
+    rgba(70, 204, 252, 1) 100%
+  );
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  width: 80vw;
+  font-family: "Press Start 2P", cursive;
+  border-radius: 10px;
+}
+
+.fancy-button {
+  background: $button-sprite-image;
+  color: white;
+  background-position: -15px -336px;
+  width: 528px;
+  height: 116px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+  font-family: "Press Start 2P", cursive;
+  font-size: 30px;
+  &:hover {
+    transform: scale(1.05);
   }
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.win-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: white;
+  font-size: 2em;
+  text-align: center;
+
+  .heading {
+    line-height: 110px;
+  }
+}
+
+.win-overlay.active {
+  display: flex; /* Shown when the 'active' class is added */
+}
+
+.restart-button {
+  background-color: green;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.2em;
+  margin-top: 20px;
+}
+
+.restart-button:hover {
+  background: $button-sprite-image;
+  color: white;
+}
+
+.score-container {
+  display: flex;
+  justify-content: space-around;
 }

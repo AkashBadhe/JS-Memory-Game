@@ -1,30 +1,34 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
 body {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   margin: 0;
-  background-color: #f0f0f0; }
+  background-color: #f0f0f0;
+  font-family: "Press Start 2P", cursive; }
 
 .memory-game-container {
   display: grid;
-  grid-template-columns: repeat(4, 370px);
+  grid-template-columns: repeat(4, 170px);
   grid-gap: 10px; }
 
 .matched {
   opacity: 0.5;
-  pointer-events: none; }
+  pointer-events: none;
+  background-color: #ccc;
+  filter: grayscale(100%); }
 
 .memory-card {
   position: relative;
   perspective: 1000px;
-  width: 370px;
-  height: 370px; }
+  width: 170px;
+  height: 170px; }
   .memory-card.flip .card {
     transform: rotateY(180deg); }
   .memory-card .card {
-    width: 370px;
-    height: 370px;
+    width: 170px;
+    height: 170px;
     transition: transform 0.5s;
     backface-visibility: visible;
     position: absolute; }
@@ -40,69 +44,101 @@ body {
     backface-visibility: hidden;
     position: absolute; }
 
+.sprite {
+  background-image: url("/sprite.c3093533.png");
+  background-repeat: no-repeat; }
+
 .image1 {
-  background-position: -194px -300px;
-  background-image: url("/sprite.5361f507.jpg"); }
+  background-position: -98px -155px; }
 
 .image2 {
-  background-position: -603px -300px;
-  background-image: url("/sprite.5361f507.jpg"); }
+  background-position: -303px -155px; }
 
 .image3 {
-  background-position: -1012px -300px;
-  background-image: url("/sprite.5361f507.jpg"); }
+  background-position: -510px -155px; }
 
 .image4 {
-  background-position: -1421px -300px;
-  background-image: url("/sprite.5361f507.jpg"); }
+  background-position: -714px -155px; }
 
 .image5 {
-  background-position: -194px -706px;
-  background-image: url("/sprite.5361f507.jpg"); }
+  background-position: -100px -358px; }
 
 .image6 {
-  background-position: -603px -706px;
-  background-image: url("/sprite.5361f507.jpg"); }
+  background-position: -305px -362px; }
 
 .image7 {
-  background-position: -1012px -706px;
-  background-image: url("/sprite.5361f507.jpg"); }
+  background-position: -508px -352px; }
 
 .image8 {
-  background-position: -1421px -706px;
-  background-image: url("/sprite.5361f507.jpg"); }
+  background-position: -713px -355px; }
 
-.image9 {
-  background-position: -194px -1112px;
-  background-image: url("/sprite.5361f507.jpg"); }
+.start-screen {
+  background: #3fc9fb;
+  background: radial-gradient(circle, #3fc9fb 0%, #46ccfc 100%);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  width: 80vw;
+  font-family: "Press Start 2P", cursive;
+  border-radius: 10px; }
 
-.image10 {
-  background-position: -603px -1112px;
-  background-image: url("/sprite.5361f507.jpg"); }
+.fancy-button {
+  background: url("/buttons.682d06c5.png");
+  color: white;
+  background-position: -15px -336px;
+  width: 528px;
+  height: 116px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+  font-family: "Press Start 2P", cursive;
+  font-size: 30px; }
+  .fancy-button:hover {
+    transform: scale(1.05); }
+  .fancy-button:active {
+    transform: scale(0.95); }
 
-.image11 {
-  background-position: -1012px -1112px;
-  background-image: url("/sprite.5361f507.jpg"); }
+.win-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: white;
+  font-size: 2em;
+  text-align: center; }
+  .win-overlay .heading {
+    line-height: 110px; }
 
-.image12 {
-  background-position: -1421px -1112px;
-  background-image: url("/sprite.5361f507.jpg"); }
+.win-overlay.active {
+  display: flex;
+  /* Shown when the 'active' class is added */ }
 
-.image13 {
-  background-position: -194px -1518px;
-  background-image: url("/sprite.5361f507.jpg"); }
+.restart-button {
+  background-color: green;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.2em;
+  margin-top: 20px; }
 
-.image14 {
-  background-position: -603px -1518px;
-  background-image: url("/sprite.5361f507.jpg"); }
+.restart-button:hover {
+  background: url("/buttons.682d06c5.png");
+  color: white; }
 
-.image15 {
-  background-position: -1012px -1518px;
-  background-image: url("/sprite.5361f507.jpg"); }
-
-.image16 {
-  background-position: -1421px -1518px;
-  background-image: url("/sprite.5361f507.jpg"); }
+.score-container {
+  display: flex;
+  justify-content: space-around; }
 
 
 /*# sourceMappingURL=/src.a2b27638.css.map */

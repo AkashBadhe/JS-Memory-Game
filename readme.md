@@ -13,28 +13,30 @@ What things you need to install the software and how to install them:
 - A modern web-browser like Brave, Chrome, Firefox etc.
 - A text-editor like VSCode, Atom etc.
 
+## Auto merge
+
 ### Running
 
 1. Clone the repo
-    ```sh
-    git clone https://github.com/AkashBadhe/JS-Memory-Game.git
-    ```
+   ```sh
+   git clone https://github.com/AkashBadhe/JS-Memory-Game.git
+   ```
 2. Navigate to the project directory
-    ```sh
-    cd JS-Memory-Game
-    ```
+   ```sh
+   cd JS-Memory-Game
+   ```
 3. Install NPM packages
-    ```sh
-    npm install
-    ```
+   ```sh
+   npm install
+   ```
 4. Start the game
-    ```sh
-    npm start
-    ```
+   ```sh
+   npm start
+   ```
 5. Build the game
-    ```sh
-    npm run build
-    ```
+   ```sh
+   npm run build
+   ```
 
 ## Usage
 

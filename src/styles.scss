@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
 
-$card-width: 170px;
-$card-height: 170px;
+$card-width: calc((100vmin - 150px) / 6);
+$card-height: $card-width;
 $grid-columns: 4;
 $grid-gap: 10px;
 $background-color: #f0f0f0;
@@ -9,8 +9,9 @@ $card-background: linear-gradient(135deg, #ffc371, #ff5f6d);
 $card-border-radius: 10px;
 $card-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 $card-transition: rotateY(180deg);
-$sprite-image: url("/src/assets/images/sprite.png");
+$sprite-image: url("/src/assets/images/sprite1.png");
 $button-sprite-image: url("/src/assets/images/buttons.png");
+$image-size: $card-width;
 
 body {
   display: flex;
@@ -22,9 +23,13 @@ body {
   font-family: "Press Start 2P", cursive;
 
   .memory-game-container {
-    display: grid;
-    grid-template-columns: repeat($grid-columns, $card-width);
-    grid-gap: $grid-gap;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    width: 100vmin;
   }
 
   .matched {
@@ -52,6 +57,7 @@ body {
       transition: transform 0.5s;
       backface-visibility: visible;
       position: absolute;
+      border-radius: $card-border-radius;
     }
 
     .back-face {
@@ -71,38 +77,13 @@ body {
   .sprite {
     background-image: $sprite-image;
     background-repeat: no-repeat;
+    background-size: auto 100vmin;
   }
 
-  .image1 {
-    background-position: -98px -155px;
-  }
-
-  .image2 {
-    background-position: -303px -155px;
-  }
-
-  .image3 {
-    background-position: -510px -155px;
-  }
-
-  .image4 {
-    background-position: -714px -155px;
-  }
-
-  .image5 {
-    background-position: -100px -358px;
-  }
-
-  .image6 {
-    background-position: -305px -362px;
-  }
-
-  .image7 {
-    background-position: -508px -352px;
-  }
-
-  .image8 {
-    background-position: -713px -355px;
+  @for $i from 1 through 8 {
+    .image#{$i} {
+      background-position: calc((#{$i} - 1) * #{$image-size}) 0;
+    }
   }
 
   // Start screen
@@ -119,8 +100,8 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 80vh;
-    width: 80vw;
+    height: 100vh;
+    width: 100vw;
     font-family: "Press Start 2P", cursive;
     border-radius: 10px;
   }

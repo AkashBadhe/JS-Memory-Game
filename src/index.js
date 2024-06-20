@@ -3,7 +3,8 @@ import "./styles.scss";
 let hasFlippedCard = false;
 let lockBoard = false;
 let firstCard, secondCard;
-const cardCount = 16;
+const cardCount = 36;
+const numberOfImage = 8;
 const score = {
   tries: 0,
   time: 0,
@@ -121,10 +122,11 @@ function initializeBoard(appContainer) {
   const cardsContainer = document.querySelectorAll(".memory-game-container");
   cardsContainer.forEach((container) => {
     container.innerHTML = "";
-    let cardNumbers = Array.from(
-      { length: cardCount / 2 },
-      (_, i) => i + 1
-    ).concat(Array.from({ length: cardCount / 2 }, (_, i) => i + 1)); // [1, 2, 3, ..., 8, 1, 2, 3, ..., 8]
+    let cardNumbers = [];
+    for (let i = 0; i < cardCount / 2; i++) {
+      cardNumbers.push((i % numberOfImage) + 1);
+    }
+    cardNumbers = cardNumbers.concat(cardNumbers.slice());
     cardNumbers.sort(() => Math.random() - 0.5); // Shuffle the array
 
     for (let i = 0; i < cardCount; i++) {

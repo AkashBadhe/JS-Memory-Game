@@ -1,0 +1,20 @@
+name: Automerge dev to release
+
+on:
+  schedule:
+    - cron: "45 11 * * *" # This schedule is set to run every day at 11:45 AM UTC (5:15 PM IST)
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # this is required to fetch all branches
+
+      - name: Merge dev into release
+        run: |
+          git checkout release
+          git merge --ff-only dev  # ensure we do not create a merge commit
+          git push
